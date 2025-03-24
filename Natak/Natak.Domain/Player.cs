@@ -89,7 +89,7 @@ public sealed class Player
     {
         if (cardType == GrowthCardType.VictoryPoint)
         {
-            ScoreManager.AddHiddenPoints(1);
+            ScoreManager.AddVisiblePoints(1); // changed from AddHiddenPoints
         }
 
         GrowthCardManager.Add(cardType);
@@ -99,7 +99,7 @@ public sealed class Player
     {
         if (cardType == GrowthCardType.VictoryPoint)
         {
-            ScoreManager.RemoveHiddenPoints(1);
+            ScoreManager.RemoveVisiblePoints(1); // changed from RemoveHiddenPoints
         }
 
         if (cardType == GrowthCardType.Soldier)

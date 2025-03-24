@@ -53,7 +53,7 @@ public static class RateLimiterDependencyInjection
                 partitionKey: GetRemoteIpAddress(httpContext),
                 factory: _ => new SlidingWindowRateLimiterOptions()
                 {
-                    PermitLimit = 20,
+                    PermitLimit = 2000,
                     Window = TimeSpan.FromSeconds(5),
                     SegmentsPerWindow = 5,
                     QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
@@ -70,10 +70,10 @@ public static class RateLimiterDependencyInjection
                 partitionKey: GetRemoteIpAddress(httpContext),
                 factory: _ => new TokenBucketRateLimiterOptions()
                 {
-                    TokenLimit = 10,
+                    TokenLimit = 1000,
                     QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
                     QueueLimit = 0,
-                    ReplenishmentPeriod = TimeSpan.FromHours(1),
+                    ReplenishmentPeriod = TimeSpan.FromHours(0.1),
                     TokensPerPeriod = 1,
                     AutoReplenishment = true
                 }));
