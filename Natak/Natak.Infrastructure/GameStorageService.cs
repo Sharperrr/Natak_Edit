@@ -17,7 +17,7 @@ namespace Natak.Infrastructure
         };
         public GameStorageService()
         {
-            _basePath = @"C:\Studying\8 semestras\Bakis\SaveFolder";
+            _basePath = @"C:\SaveFolder";
         }
 
         private string GetFilePath(string gameId) => Path.Combine(_basePath, $"{gameId}.json");
