@@ -18,6 +18,8 @@ public static class InfrastructureDependencyInjection
         {
             services.AddRedisCache(redisConnectionString);
         }
+
+        services.AddScoped<IGameStorage, GameStorageService>();
         
         return services;
     }

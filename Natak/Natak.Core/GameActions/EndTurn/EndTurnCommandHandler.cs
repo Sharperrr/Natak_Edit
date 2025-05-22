@@ -5,7 +5,7 @@ using Natak.Domain.Errors;
 
 namespace Natak.Core.GameActions.EndTurn;
 
-internal sealed class EndTurnCommandHandler(IActiveGameCache cache) :
+internal sealed class SaveLoadCommandHandler(IActiveGameCache cache) :
     ICommandHandler<EndTurnCommand>
 {
     public async Task<Result> Handle(EndTurnCommand request, CancellationToken cancellationToken)

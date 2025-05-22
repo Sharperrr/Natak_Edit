@@ -4,7 +4,7 @@ namespace Natak.Infrastructure.DTOs;
 
 public sealed class GameDto : IDto<Game, GameDto>
 {
-    public required Stack<DiceRoll> DiceRolls { get; init; }
+    public required Stack<DiceRoll> DiceRolls { get; set; }
     
     public required int RoamingRoadsLeftToPlace { get; init; }
     
@@ -21,7 +21,7 @@ public sealed class GameDto : IDto<Game, GameDto>
     public required PlayerManagerDto PlayerManager { get; init; }
     
     public required bool GrowthCardPlayed { get; init; }
-    
+
     public static GameDto FromDomain(Game domain)
     {
         return new GameDto()
@@ -34,7 +34,7 @@ public sealed class GameDto : IDto<Game, GameDto>
             PlayerTradeManager = PlayerTradeManagerDto.FromDomain(domain.TradeManager),
             BankTradeManager = BankTradeManagerDto.FromDomain(domain.BankManager),
             PlayerManager = PlayerManagerDto.FromDomain(domain.PlayerManager),
-            GrowthCardPlayed = domain.GrowthCardPlayed
+            GrowthCardPlayed = domain.GrowthCardPlayed,
         };
     }
 

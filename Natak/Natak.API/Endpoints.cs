@@ -21,6 +21,7 @@ using Natak.Core.GameActions.PlayWealthCard;
 using Natak.Core.GameActions.RemoveEmbargo;
 using Natak.Core.GameActions.RespondToTradeOffer;
 using Natak.Core.GameActions.RollDice;
+using Natak.Core.GameActions.SaveLoad;
 using Natak.Core.GameActions.StealResource;
 using Natak.Core.GameActions.TradeWithBank;
 using MediatR;
@@ -52,6 +53,7 @@ public static class Endpoints
         builder.MapGet("{gameId}/available-road-locations", GetAvailableRoadLocationsAsync);
         builder.MapPost("", CreateGameAsync)
             .RequireRateLimiting(RateLimiterConstants.CreateGamePolicyName);
+        builder.MapPost("{gameId}/{isSaved}/save-load", SaveLoadAsync);
         builder.MapPost("{gameId}/{playerColour}/roll", RollDiceAsync);
         builder.MapPost("{gameId}/{playerColour}/end-turn", EndTurnAsync);
         builder.MapPost("{gameId}/{playerColour}/build/road", BuildRoadAsync);
@@ -486,5 +488,18 @@ public static class Endpoints
         var gameResult = await sender.Send(gameQuery, cancellationToken);
 
         return TypedResultFactory.Ok(gameResult);
+    }
+
+    private static async Task<IResult> SaveLoadAsync(
+        ISender sender,
+        string gameId,
+        bool isSaved,
+        CancellationToken cancellationToken = default)
+    {
+        var command = new SaveLoadCommand(gameId, isSaved);
+
+        var result = await sender.Send(command, cancellationToken);
+        
+        return TypedResultFactory.NoContent(result);
     }
 }
